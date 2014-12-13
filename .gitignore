@@ -13,3 +13,6 @@ obj
 
 # mstest test results
 TestResults
+
+# NuGet
+packages

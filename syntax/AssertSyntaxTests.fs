@@ -105,31 +105,31 @@ let SubstringTests() =
     let array = [| "abc"; "bad"; "dba" |]
     StringAssert.Contains("World", phrase)
     Assert.That(phrase, Contains.Substring("World"))
-    Assert.That(phrase, Is.Not.StringContaining("goodbye"))
+    Assert.That(phrase, Does.Not.Contain("goodbye"))
     Assert.That(phrase, Contains.Substring("WORLD").IgnoreCase)
-    Assert.That(phrase, Is.Not.StringContaining("BYE").IgnoreCase)
-    Assert.That(array, Has.All.StringContaining( "b" ) )
+    Assert.That(phrase, Does.Not.Contain("BYE").IgnoreCase)
+    Assert.That(array, Has.All.Contains( "b" ) )
 
 [<Test>]
 let StartsWithTests() =
     let phrase = "Hello World!"
     let greetings = [| "Hello!"; "Hi!"; "Hola!" |]
     StringAssert.StartsWith("Hello", phrase);
-    Assert.That(phrase, Is.StringStarting("Hello"))
-    Assert.That(phrase, Is.Not.StringStarting("Hi!"))
-    Assert.That(phrase, Is.StringStarting("HeLLo").IgnoreCase)
-    Assert.That(phrase, Is.Not.StringStarting("HI").IgnoreCase)
-    Assert.That(greetings, Is.All.StringStarting("h").IgnoreCase)
+    Assert.That(phrase, Does.StartWith("Hello"))
+    Assert.That(phrase, Does.Not.StartWith("Hi!"))
+    Assert.That(phrase, Does.StartWith("HeLLo").IgnoreCase)
+    Assert.That(phrase, Does.Not.StartWith("HI").IgnoreCase)
+    Assert.That(greetings, Is.All.StartsWith("h").IgnoreCase)
 
 [<Test>]
 let EndsWithTests() =
     let phrase = "Hello World!"
     let greetings = [| "Hello!"; "Hi!"; "Hola!" |];
     StringAssert.EndsWith("!", phrase)
-    Assert.That(phrase, Is.StringEnding("!"))
-    Assert.That(phrase, Is.Not.StringEnding("?"))
-    Assert.That(phrase, Is.StringEnding("WORLD!").IgnoreCase)
-    Assert.That(greetings, Is.All.StringEnding("!"))
+    Assert.That(phrase, Does.EndWith("!"))
+    Assert.That(phrase, Does.Not.EndWith("?"))
+    Assert.That(phrase, Does.EndWith("WORLD!").IgnoreCase)
+    Assert.That(greetings, Is.All.EndsWith("!"))
 
 [<Test>]
 let EqualIgnoringCaseTests() =
@@ -148,11 +148,11 @@ let RegularExpressionTests() =
     let quotes = [| "Never say never"; "It's never too late"; "Nevermore!" |]
     StringAssert.IsMatch( "all good men", phrase )
     StringAssert.IsMatch( "Now.*come", phrase )
-    Assert.That( phrase, Is.StringMatching( "all good men" ) )
-    Assert.That( phrase, Is.StringMatching( "Now.*come" ) )
-    Assert.That( phrase, Is.Not.StringMatching("all.*men.*good") )
-    Assert.That( phrase, Is.StringMatching("ALL").IgnoreCase )
-    Assert.That( quotes, Is.All.StringMatching("never").IgnoreCase )
+    Assert.That( phrase, Does.Match( "all good men" ) )
+    Assert.That( phrase, Does.Match( "Now.*come" ) )
+    Assert.That( phrase, Does.Not.Match("all.*men.*good") )
+    Assert.That( phrase, Does.Match("ALL").IgnoreCase )
+    Assert.That( quotes, Is.All.Matches("never").IgnoreCase )
 
 [<Test>]
 let EqualityTests() =
@@ -254,7 +254,7 @@ let AllItemsTests() =
     Assert.That(ints, Is.All.GreaterThan(0))
     Assert.That(ints, Has.All.GreaterThan(0));
     Assert.That(ints, Has.None.LessThanOrEqualTo(0))
-    Assert.That(strings, Is.All.StringContaining( "a" ) )
+    Assert.That(strings, Is.All.Contains( "a" ) )
     Assert.That(strings, Has.All.Contains( "a" ) )
     Assert.That(strings, Has.Some.StartsWith( "ba" ) )
     Assert.That( strings, Has.Some.Property( "Length" ).EqualTo( 3 ) )
