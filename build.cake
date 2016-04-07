@@ -188,6 +188,10 @@ Task("Appveyor")
 .IsDependentOn("Build")
 .IsDependentOn("Test");
 
+Task("Travis")
+.IsDependentOn("Build")
+.IsDependentOn("Test");
+
 Task("Default")
 .IsDependentOn("Build");
 
