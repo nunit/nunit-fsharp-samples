@@ -8,7 +8,7 @@
     <ProjectGuid>{5de001e7-2606-4dfe-8c03-90c70d2c3805}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>syntax</RootNamespace>
-    <AssemblyName>syntax</AssemblyName>
+    <AssemblyName>fs-syntax</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <Name>syntax</Name>
     <TargetFSharpCoreVersion>2.3.0.0</TargetFSharpCoreVersion>
@@ -51,12 +51,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core">
+      <HintPath>packages\FSharp.Core.3.1.2.5\lib\net20\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
-      <HintPath>packages\NUnit.3.0.0-alpha-3\lib\net20\nunit.framework.dll</HintPath>
+      <HintPath>packages\NUnit.3.2.0\lib\net20\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

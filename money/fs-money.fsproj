@@ -8,7 +8,7 @@
     <ProjectGuid>{3f6b1a52-b393-4218-9293-be3f1701b6b6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>money</RootNamespace>
-    <AssemblyName>money</AssemblyName>
+    <AssemblyName>fs-money</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <Name>money</Name>
     <TargetFSharpCoreVersion>2.3.0.0</TargetFSharpCoreVersion>
@@ -52,12 +52,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core">
+      <HintPath>packages\FSharp.Core.3.1.2.5\lib\net20\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
-      <HintPath>packages\NUnit.3.0.0-alpha-3\lib\net20\nunit.framework.dll</HintPath>
+      <HintPath>packages\NUnit.3.2.0\lib\net20\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
