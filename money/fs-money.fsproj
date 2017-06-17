@@ -58,7 +58,7 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
-      <HintPath>packages\NUnit.3.2.0\lib\net20\nunit.framework.dll</HintPath>
+      <HintPath>packages\NUnit.3.7.1\lib\net20\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
