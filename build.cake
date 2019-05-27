@@ -81,7 +81,7 @@ Task("Build")
             {
                 MSBuild(proj, CreateSettings());
             }
-            catch (Exception e)
+            catch
             {
                 // Just record and continue, since samples are independent
                 ErrorDetail.Add("     * " + projName + " build failed.");
