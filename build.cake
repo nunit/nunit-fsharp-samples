@@ -42,6 +42,7 @@ Task("DiscoverSolutions")
 //////////////////////////////////////////////////////////////////////
 // CLEAN
 //////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 Task("Clean")
 .IsDependentOn("DiscoverSolutions")
@@ -78,7 +79,7 @@ Task("Build")
 
             try
             {
-                BuildProject(proj, configuration);
+                MSBuild(proj, CreateSettings());
             }
             catch (Exception e)
             {
@@ -87,6 +88,30 @@ Task("Build")
             }
         }
     });
+
+// Workaround until Cake 0.34 (https://github.com/cake-build/cake/issues/2546#issuecomment-490756492)
+MSBuildSettings CreateSettings()
+{
+    var settings = new MSBuildSettings { Verbosity = Verbosity.Minimal, Configuration = configuration };
+
+    if (IsRunningOnWindows())
+    {
+        var vsLatest = VSWhereLatest();
+        var msBuildPath = vsLatest?.CombineWithFilePath("./MSBuild/Current/Bin/MSBuild.exe");
+
+        if (msBuildPath != null && !FileExists(msBuildPath))
+            msBuildPath = vsLatest?.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe");
+
+        if (!FileExists(msBuildPath))
+            throw new Exception($"Failed to find MSBuild: {msBuildPath}");
+
+        settings.ToolPath = msBuildPath;
+    }
+    else
+        settings.ToolPath = Context.Tools.Resolve("msbuild");
+
+    return settings;
+}
 
 //////////////////////////////////////////////////////////////////////
 // TEST
@@ -121,7 +146,7 @@ Task("Test")
 // TEARDOWN TASK
 //////////////////////////////////////////////////////////////////////
 
-Teardown(() =>
+Teardown(context =>
     {
         CheckForError(ref ErrorDetail);
     });
@@ -141,25 +166,6 @@ void CheckForError(ref List<string> errorDetail)
 //////////////////////////////////////////////////////////////////////
 // HELPER METHODS
 //////////////////////////////////////////////////////////////////////
-
-void BuildProject(string projPath, string configuration)
-{
-    if (IsRunningOnWindows())
-    {
-        MSBuild(projPath, new MSBuildSettings()
-            .SetConfiguration(configuration)
-            .SetMSBuildPlatform(MSBuildPlatform.Automatic)
-            .SetVerbosity(Verbosity.Minimal)
-            .SetNodeReuse(false));
-    }
-    else
-    {
-        XBuild(projPath, new XBuildSettings()
-            .WithTarget("Build")
-            .WithProperty("Configuration", configuration)
-            .SetVerbosity(Verbosity.Minimal));
-    }
-}
 
 string DirFrom(string filePath)
 {
